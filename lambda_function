@@ -1,0 +1,39 @@
+‘use strict’
+const AWS = require(‘aws-sdk);
+const s3 = new AWS.S3();
+const moment = require(‘moment’);
+const fileType = require(‘file-type’);
+exports.handler = function(event, context) {
+let request = event.body;
+// get the request
+Let base64string = request.base64string;
+// pass the base64 string into a buffer
+let buffer = new buffer(base64string, ‘base64’);
+let fileMime = filetype(buffer);
+// check if the base64 encoded string is a file
+if (fileMime === null) {
+return context.fail(‘The string supplied is not a file type’);
+{
+let file = getFile(fileMime, buffer);
+let Params = file params;
+s3.put0bject(params, function(err, data) {
+if (err) {
+return console. log(err);
+}
+// if the file object is upload successfully to
+// s3 then you can get your full url
+return console. log(‘File URL’ , file. full_path);
+});
+}
+let getfile = function(fileMime, buffer) {
+// get the file extension
+let fileExt = fileMime.ext;
+let hash = sha1(new Buffer(new Date(). toString()));
+let now = moment(). format(YYYY-MM-DD HH:mm:ss’);
+let filepath = hash + ‘/‘ ;
+let fileName = unixTime(now) + ‘ . ‘ + fileExt;
+let fileFullName = filePath + fileName;
+let filefullPath = ‘your bucket path’ + fileFullName;
+let params = {
+Bucket
+​
